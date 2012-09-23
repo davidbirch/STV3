@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  xmltv_id: MyString
+  channel_name: MyString
+  channel_short_name: MyString
+  channel_logo_url: MyString
+  channel_free_or_pay: MyString
+
+two:
+  xmltv_id: MyString
+  channel_name: MyString
+  channel_short_name: MyString
+  channel_logo_url: MyString
+  channel_free_or_pay: MyString

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  rule_type: MyString
+  value: MyString
+  start_date: 2012-09-23 15:57:00
+  end_date: 2012-09-23 15:57:00
+  channel_id: 1
+  channel_name: MyString
+  sport_id: 1
+  sport_name: MyString
+
+two:
+  rule_type: MyString
+  value: MyString
+  start_date: 2012-09-23 15:57:00
+  end_date: 2012-09-23 15:57:00
+  channel_id: 1
+  channel_name: MyString
+  sport_id: 1
+  sport_name: MyString

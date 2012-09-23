@@ -1,4 +1,18 @@
 STV3::Application.routes.draw do
+  resources :rules
+
+  resources :sports
+
+  resources :regions
+
+  resources :raw_programs
+
+  resources :log_entries
+
+  resources :parameters
+
+  resources :raw_channels
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

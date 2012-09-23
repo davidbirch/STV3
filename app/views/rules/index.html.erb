@@ -1,0 +1,37 @@
+<h1>Listing rules</h1>
+
+<table>
+  <tr>
+    <th>Rule type</th>
+    <th>Value</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Channel</th>
+    <th>Channel name</th>
+    <th>Sport</th>
+    <th>Sport name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rules.each do |rule| %>
+  <tr>
+    <td><%= rule.rule_type %></td>
+    <td><%= rule.value %></td>
+    <td><%= rule.start_date %></td>
+    <td><%= rule.end_date %></td>
+    <td><%= rule.channel_id %></td>
+    <td><%= rule.channel_name %></td>
+    <td><%= rule.sport_id %></td>
+    <td><%= rule.sport_name %></td>
+    <td><%= link_to 'Show', rule %></td>
+    <td><%= link_to 'Edit', edit_rule_path(rule) %></td>
+    <td><%= link_to 'Destroy', rule, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rule', new_rule_path %>

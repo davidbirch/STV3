@@ -1,0 +1,49 @@
+<%= form_for(@rule) do |f| %>
+  <% if @rule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rule.errors.count, "error") %> prohibited this rule from being saved:</h2>
+
+      <ul>
+      <% @rule.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rule_type %><br />
+    <%= f.text_field :rule_type %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.datetime_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.datetime_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :channel_id %><br />
+    <%= f.number_field :channel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :channel_name %><br />
+    <%= f.text_field :channel_name %>
+  </div>
+  <div class="field">
+    <%= f.label :sport_id %><br />
+    <%= f.number_field :sport_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sport_name %><br />
+    <%= f.text_field :sport_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Xmltv:</b>
+  <%= @raw_channel.xmltv_id %>
+</p>
+
+<p>
+  <b>Channel name:</b>
+  <%= @raw_channel.channel_name %>
+</p>
+
+<p>
+  <b>Channel short name:</b>
+  <%= @raw_channel.channel_short_name %>
+</p>
+
+<p>
+  <b>Channel logo url:</b>
+  <%= @raw_channel.channel_logo_url %>
+</p>
+
+<p>
+  <b>Channel free or pay:</b>
+  <%= @raw_channel.channel_free_or_pay %>
+</p>
+
+
+<%= link_to 'Edit', edit_raw_channel_path(@raw_channel) %> |
+<%= link_to 'Back', raw_channels_path %>
