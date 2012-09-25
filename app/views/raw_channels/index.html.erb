@@ -4,9 +4,6 @@
   <tr>
     <th>Xmltv</th>
     <th>Channel name</th>
-    <th>Channel short name</th>
-    <th>Channel logo url</th>
-    <th>Channel free or pay</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,9 +13,6 @@
   <tr>
     <td><%= raw_channel.xmltv_id %></td>
     <td><%= raw_channel.channel_name %></td>
-    <td><%= raw_channel.channel_short_name %></td>
-    <td><%= raw_channel.channel_logo_url %></td>
-    <td><%= raw_channel.channel_free_or_pay %></td>
     <td><%= link_to 'Show', raw_channel %></td>
     <td><%= link_to 'Edit', edit_raw_channel_path(raw_channel) %></td>
     <td><%= link_to 'Destroy', raw_channel, confirm: 'Are you sure?', method: :delete %></td>

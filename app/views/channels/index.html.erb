@@ -1,0 +1,33 @@
+<h1>Listing channels</h1>
+
+<table>
+  <tr>
+    <th>Xmltv</th>
+    <th>Channel name</th>
+    <th>Channel short name</th>
+    <th>Channel logo url</th>
+    <th>Channel free or pay</th>
+    <th>Slug</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @channels.each do |channel| %>
+  <tr>
+    <td><%= channel.xmltv_id %></td>
+    <td><%= channel.channel_name %></td>
+    <td><%= channel.channel_short_name %></td>
+    <td><%= channel.channel_logo_url %></td>
+    <td><%= channel.channel_free_or_pay %></td>
+    <td><%= channel.slug %></td>
+    <td><%= link_to 'Show', channel %></td>
+    <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
+    <td><%= link_to 'Destroy', channel, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Channel', new_channel_path %>

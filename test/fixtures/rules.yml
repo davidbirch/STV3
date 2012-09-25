@@ -2,9 +2,10 @@
 
 one:
   rule_type: MyString
+  priority: 1
   value: MyString
-  start_date: 2012-09-23 15:57:00
-  end_date: 2012-09-23 15:57:00
+  start_date: 2012-09-25 18:53:22
+  end_date: 2012-09-25 18:53:22
   channel_id: 1
   channel_name: MyString
   sport_id: 1
@@ -12,9 +13,10 @@ one:
 
 two:
   rule_type: MyString
+  priority: 1
   value: MyString
-  start_date: 2012-09-23 15:57:00
-  end_date: 2012-09-23 15:57:00
+  start_date: 2012-09-25 18:53:22
+  end_date: 2012-09-25 18:53:22
   channel_id: 1
   channel_name: MyString
   sport_id: 1

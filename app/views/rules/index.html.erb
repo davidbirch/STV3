@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>Rule type</th>
+    <th>Priority</th>
     <th>Value</th>
     <th>Start date</th>
     <th>End date</th>
@@ -18,6 +19,7 @@
 <% @rules.each do |rule| %>
   <tr>
     <td><%= rule.rule_type %></td>
+    <td><%= rule.priority %></td>
     <td><%= rule.value %></td>
     <td><%= rule.start_date %></td>
     <td><%= rule.end_date %></td>

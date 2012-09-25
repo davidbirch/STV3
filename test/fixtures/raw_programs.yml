@@ -5,17 +5,17 @@ one:
   subtitle: MyString
   category: MyString
   description: MyString
-  start_datetime: 2012-09-23 12:06:48
-  end_datetime: 2012-09-23 12:06:48
+  start_datetime: 2012-09-24 20:55:12
+  end_datetime: 2012-09-24 20:55:12
   region_name: MyString
-  channel_name: MyString
+  channel_xmltv_id: MyString
 
 two:
   title: MyString
   subtitle: MyString
   category: MyString
   description: MyString
-  start_datetime: 2012-09-23 12:06:48
-  end_datetime: 2012-09-23 12:06:48
+  start_datetime: 2012-09-24 20:55:12
+  end_datetime: 2012-09-24 20:55:12
   region_name: MyString
-  channel_name: MyString
+  channel_xmltv_id: MyString

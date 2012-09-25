@@ -1,0 +1,41 @@
+<%= form_for(@channel) do |f| %>
+  <% if @channel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
+
+      <ul>
+      <% @channel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :xmltv_id %><br />
+    <%= f.text_field :xmltv_id %>
+  </div>
+  <div class="field">
+    <%= f.label :channel_name %><br />
+    <%= f.text_field :channel_name %>
+  </div>
+  <div class="field">
+    <%= f.label :channel_short_name %><br />
+    <%= f.text_field :channel_short_name %>
+  </div>
+  <div class="field">
+    <%= f.label :channel_logo_url %><br />
+    <%= f.text_field :channel_logo_url %>
+  </div>
+  <div class="field">
+    <%= f.label :channel_free_or_pay %><br />
+    <%= f.text_field :channel_free_or_pay %>
+  </div>
+  <div class="field">
+    <%= f.label :slug %><br />
+    <%= f.text_field :slug %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

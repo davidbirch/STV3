@@ -25,7 +25,8 @@ end
 # import the white sport names
 CSV.open("db/seed data/ruleset - white sports.csv", "r").each do |row|
   Rule.create(
-    :rule_type => row[2],
+    :rule_type => "White Keyword",
+    :priority => row[2],
     :value => row[0],
     :sport_name => row[1],
     :sport_id => Sport.where("sport_name = ?", row[1]).first["id"]
@@ -36,7 +37,8 @@ end
 # import the white sport keywords
 CSV.open("db/seed data/ruleset - white keywords.csv", "r").each do |row|
   Rule.create(
-    :rule_type => row[2],
+    :rule_type => "White Keyword",
+    :priority => row[2],
     :value => row[0],
     :sport_name => row[1],
     :sport_id => Sport.where("sport_name = ?", row[1]).first["id"]
