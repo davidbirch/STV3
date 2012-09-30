@@ -4,10 +4,10 @@ one:
   rule_type: MyString
   priority: 1
   value: MyString
-  start_date: 2012-09-25 18:53:22
-  end_date: 2012-09-25 18:53:22
+  start_date: 2012-09-30 13:49:12
+  end_date: 2012-09-30 13:49:12
   channel_id: 1
-  channel_name: MyString
+  channel_xmltv_id: MyString
   sport_id: 1
   sport_name: MyString
 
@@ -15,9 +15,9 @@ two:
   rule_type: MyString
   priority: 1
   value: MyString
-  start_date: 2012-09-25 18:53:22
-  end_date: 2012-09-25 18:53:22
+  start_date: 2012-09-30 13:49:12
+  end_date: 2012-09-30 13:49:12
   channel_id: 1
-  channel_name: MyString
+  channel_xmltv_id: MyString
   sport_id: 1
   sport_name: MyString

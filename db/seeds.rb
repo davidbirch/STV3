@@ -44,3 +44,19 @@ CSV.open("db/seed data/ruleset - white keywords.csv", "r").each do |row|
     :sport_id => Sport.where("sport_name = ?", row[1]).first["id"]
   )
 end
+
+# import the black channels
+CSV.open("db/seed data/ruleset - black channels.csv", "r").each do |row|
+  Rule.create(
+    :rule_type => "Black Channel",
+    :channel_xmltv_id => row[0]   
+  )
+end
+
+# import the black keywords
+CSV.open("db/seed data/ruleset - black keywords.csv", "r").each do |row|
+  Rule.create(
+    :rule_type => "Black Keyword",
+    :value => row[0]
+  )
+end

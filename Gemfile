@@ -36,3 +36,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+// additional gems for STV3
+gem 'annotate', '~> 2.4.1.beta'
+gem 'friendly_id', '~> 4.0.1'

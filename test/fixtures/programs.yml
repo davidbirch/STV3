@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  subtitle: MyString
+  category: MyString
+  description: MyString
+  start_datetime: 2012-09-30 15:10:17
+  end_datetime: 2012-09-30 15:10:17
+  region_name: MyString
+  region_id: 1
+  sport_name: MyString
+  sport_id: 1
+  channel_xmltv_id: MyString
+  channel_id: 1
+
+two:
+  title: MyString
+  subtitle: MyString
+  category: MyString
+  description: MyString
+  start_datetime: 2012-09-30 15:10:17
+  end_datetime: 2012-09-30 15:10:17
+  region_name: MyString
+  region_id: 1
+  sport_name: MyString
+  sport_id: 1
+  channel_xmltv_id: MyString
+  channel_id: 1

@@ -20,6 +20,7 @@ LOG_FILE_PATH = "../../../log/update_tables.log"
 
 # initialise the log
 log = Logger.new(File.expand_path(LOG_FILE_PATH, __FILE__))
+log.level = Logger::INFO
 log.info("****** Starting update_tables.rb ******")
 
 begin
@@ -40,7 +41,7 @@ begin
   querystring ="
   SELECT *
   FROM raw_channels"
-  log.info("Run database query: #{querystring}")
+  log.debug("Run database query: #{querystring}")
   
   # execute the database query
   results = db.query(querystring)
@@ -57,7 +58,7 @@ begin
     WHERE xmltv_id = '#{channel_xmltv_id}'"
     
     # execute the database query
-    log.info("Run database query: #{querystring}")
+    log.debug("Run database query: #{querystring}")
     channel_check = db.query(querystring)
     
     if channel_check.count > 0
@@ -69,7 +70,7 @@ begin
       channel_updated_at = channel_created_at # note: this is the Rails updated_at, not a Channel attribute
       
       # create the computed values
-      channel_name = row["channel_name"]
+      channel_name = db.escape(row["channel_name"])
       channel_short_name = channel_name[0,4] #get the first four characters as default for the short name
       if channel_xmltv_id.include? "free"
         channel_free_or_pay = "free"
@@ -83,7 +84,7 @@ begin
       VALUES('#{channel_xmltv_id}', '#{channel_name}', '#{channel_short_name}',  '#{channel_free_or_pay}', '#{channel_created_at}', '#{channel_updated_at}')"
   
       # execute the database query to create the user
-      log.info("Run database query: #{querystring}")
+      log.debug("Run database query: #{querystring}")
       db.query(querystring)
      
     end
@@ -94,16 +95,15 @@ begin
     WHERE xmltv_id = '#{channel_xmltv_id}'"
       
     # execute the  query
-    log.info("Run database query: #{querystring}")
+    log.debug("Run database query: #{querystring}")
     db.query(querystring)
    
   end
   
   querystring ="
   SELECT *
-  FROM raw_programs
-  LIMIT 0,10"
-  log.info("Run database query: #{querystring}")
+  FROM raw_programs"
+  log.debug("Run database query: #{querystring}")
   
   # execute the database query
   results = db.query(querystring)
@@ -113,10 +113,10 @@ begin
   results.each do |row|
   
     # get the relevant program attributes from the raw_program object
-    program_title = row["title"]
-    program_subtitle = row["subtitle"]
-    program_category = row["category"]
-    program_description = row["description"]
+    program_title = db.escape(row["title"])
+    program_subtitle = db.escape(row["subtitle"])
+    program_category = db.escape(row["category"])
+    program_description = db.escape(row["description"])
     program_start_datetime = row["start_datetime"]
     program_end_datetime = row["end_datetime"]
     program_region_name =  row["region_name"]
@@ -134,7 +134,7 @@ begin
         
     # get the channel_id
     # this cycles through in case there are multiple records
-    log.info("Run database query: #{querystring}")
+    log.debug("Run database query: #{querystring}")
     channel_check = db.query(querystring)
     channel_id = 0
     channel_check.each do |channel|
@@ -149,7 +149,7 @@ begin
         
     # get the region_id
     # this cycles through in case there are multiple records
-    log.info("Run database query: #{querystring}")
+    log.debug("Run database query: #{querystring}")
     region_check = db.query(querystring)
     region_id = 0
     region_check.each do |region|
@@ -158,27 +158,27 @@ begin
     
     # filter the sport using the GetSport algorithm
     program_sport_name = GetSport(db,log,row)
-    
-    # calculate the sport_id
-    querystring = "
-    SELECT id
-    FROM sports
-    WHERE sport_name = '#{program_sport_name}'"
-        
-    # get the sport_id
-    # this cycles through in case there are multiple records
-    log.info("Run database query: #{querystring}")
-    sport_check = db.query(querystring)
-    sport_id = 0
-    sport_check.each do |sport|
-      sport_id = sport["id"]
-    end
-        
+     
     if program_sport_name == ""
       # the sport was not a match so do nothing
       # the entry will be deleted outside the if statement
       
     else
+      # calculate the sport_id
+      querystring = "
+      SELECT id
+      FROM sports
+      WHERE sport_name = '#{program_sport_name}'"
+        
+      # get the sport_id
+      # this cycles through in case there are multiple records
+      log.debug("Run database query: #{querystring}")
+      sport_check = db.query(querystring)
+      sport_id = 0
+      sport_check.each do |sport|
+        sport_id = sport["id"]
+      end
+      
       # all relevant information exists and the sport has been categorised
       # create the program record
       querystring = "
@@ -186,19 +186,19 @@ begin
       VALUES('#{program_title}', '#{program_subtitle}', '#{program_category}',  '#{program_description}', '#{program_start_datetime}', '#{program_end_datetime}', '#{program_region_name}', '#{region_id}', '#{program_sport_name}', '#{sport_id}', '#{program_channel_xmltv_id}', '#{channel_id}', '#{program_created_at}', '#{program_updated_at}')"
   
       # execute the database query to create the user
-      log.info("Run database query: #{querystring}")
-      #db.query(querystring)
+      log.debug("Run database query: #{querystring}")
+      db.query(querystring)
      
     end
     
     # now delete the program from the raw_programs table
     querystring = "
-    DELETE FROM raw_channels
+    DELETE FROM raw_programs
     WHERE id = '#{row["id"]}'"
       
     # execute the  query
-    log.info("Run database query: #{querystring}")
-    #db.query(querystring)
+    log.debug("Run database query: #{querystring}")
+    db.query(querystring)
   
   end
     
@@ -211,7 +211,7 @@ end
 # Close the database
 if db
   db.close 
-  log.info("Database closed")
+  log.debug("Database closed")
 end
 
 log.info("****** Completed update_tables.rb ******")

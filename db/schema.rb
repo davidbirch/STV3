@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925085322) do
+ActiveRecord::Schema.define(:version => 20120930051017) do
 
   create_table "channels", :force => true do |t|
     t.string   "xmltv_id"
@@ -36,6 +36,23 @@ ActiveRecord::Schema.define(:version => 20120925085322) do
     t.string   "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "programs", :force => true do |t|
+    t.string   "title"
+    t.string   "subtitle"
+    t.string   "category"
+    t.string   "description"
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.string   "region_name"
+    t.integer  "region_id"
+    t.string   "sport_name"
+    t.integer  "sport_id"
+    t.string   "channel_xmltv_id"
+    t.integer  "channel_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "raw_channels", :force => true do |t|
@@ -72,11 +89,11 @@ ActiveRecord::Schema.define(:version => 20120925085322) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "channel_id"
-    t.string   "channel_name"
+    t.string   "channel_xmltv_id"
     t.integer  "sport_id"
     t.string   "sport_name"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "sports", :force => true do |t|

@@ -1,0 +1,45 @@
+<h1>Listing programs</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Subtitle</th>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Start datetime</th>
+    <th>End datetime</th>
+    <th>Region name</th>
+    <th>Region</th>
+    <th>Sport name</th>
+    <th>Sport</th>
+    <th>Channel xmltv</th>
+    <th>Channel</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @programs.each do |program| %>
+  <tr>
+    <td><%= program.title %></td>
+    <td><%= program.subtitle %></td>
+    <td><%= program.category %></td>
+    <td><%= program.description %></td>
+    <td><%= program.start_datetime %></td>
+    <td><%= program.end_datetime %></td>
+    <td><%= program.region_name %></td>
+    <td><%= program.region_id %></td>
+    <td><%= program.sport_name %></td>
+    <td><%= program.sport_id %></td>
+    <td><%= program.channel_xmltv_id %></td>
+    <td><%= program.channel_id %></td>
+    <td><%= link_to 'Show', program %></td>
+    <td><%= link_to 'Edit', edit_program_path(program) %></td>
+    <td><%= link_to 'Destroy', program, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Program', new_program_path %>

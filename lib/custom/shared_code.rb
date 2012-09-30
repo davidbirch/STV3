@@ -3,8 +3,36 @@ def CheckBlackChannel(db,log,row)
   # returns true/false
   # this check is for black channels
   
-  # for now just return false
-  return false
+  # use a default return value
+  return_value = false
+  
+  querystring = "
+  SELECT channel_xmltv_id
+  FROM rules
+  WHERE rule_type = 'Black Channel'"
+  
+  log.debug("Run database query: #{querystring}")
+  black_channel_list = db.query(querystring)
+  
+  if black_channel_list.count == 0
+    # no black channel rules so return false
+    # do nothing
+   
+  else
+    # loop through each black channel and return true if there is a match
+    black_channel_list.each do |black_channel|
+      if black_channel["channel_xmltv_id"] == row["channel_xmltv_id"]
+        # set the return value to true
+        return_value = true
+        #log.debug("XXX - Black Channel match found(#{black_channel["channel_xmltv_id"]})")
+      else
+        #do nothing
+      end
+    end
+  end
+  
+  # return the appropriate value
+  return return_value
 
 end
 ################################################################################
@@ -12,8 +40,57 @@ def CheckBlackKeyword(db,log,row)
   # returns true/false
   # this check is for black keywords
   
-  # for now just return false
-  return false
+  # use a default return value
+  return_value = false
+  
+  querystring = "
+  SELECT value
+  FROM rules
+  WHERE rule_type = 'Black Keyword'"
+  
+  log.debug("Run database query: #{querystring}")
+  black_keyword_list = db.query(querystring)
+  
+  if black_keyword_list.count == 0
+    # no black keyword rules so return false
+    # do nothing
+   
+  else
+    # loop through each black keyword and return true if there is a match
+    program_title = row["title"].downcase
+    program_subtitle = row["subtitle"].downcase
+    #program_description = row["description"].downcase
+    program_category = row["category"].downcase
+    
+    black_keyword_list.each do |black_keyword|
+      
+      # get the keyword value
+      black_keyword_value = black_keyword["value"].downcase
+      
+      if program_title.include? black_keyword_value
+        # set the return value to true
+        return_value = true
+        #log.debug("XXX - Black Keyword match found (#{black_keyword_value})")
+      elsif program_subtitle.include? black_keyword_value  
+        # set the return value to true
+        return_value = true
+        #log.debug("XXX - Black Keyword match found (#{black_keyword_value})")
+      #elsif program_description.include? black_keyword_value  
+      #  # set the return value to true
+      #  return_value = true
+      #  #log.debug("XXX - Black Keyword match found (#{black_keyword_value})")
+      elsif program_category.include? black_keyword_value  
+        # set the return value to true
+        return_value = true
+        #log.debug("XXX - Black Keyword match found (#{black_keyword_value})")
+      else
+        #do nothing
+      end
+    end
+  end
+  
+  # return the appropriate value
+  return return_value
 
 end
 ################################################################################
@@ -21,8 +98,65 @@ def CheckWhiteKeyword(db,log,row)
   # returns keyword or blank
   # this check is for white keywords
   
-  # for now return a default - Cricket
-  return "Cricket"
+  # use a default return value
+  return_value = ""
+  
+  querystring = "
+  SELECT value, sport_name
+  FROM rules
+  WHERE rule_type = 'White Keyword'
+  ORDER BY priority DESC, LENGTH(value) DESC"
+  
+  log.debug("Run database query: #{querystring}")
+  white_keyword_list = db.query(querystring)
+  
+  if white_keyword_list.count == 0
+    # no white keyword rules so return ""
+    # do nothing
+   
+  else
+    # loop through each black keyword and return true if there is a match
+    program_title = row["title"].downcase
+    program_subtitle = row["subtitle"].downcase
+    #program_description = row["description"].downcase
+    program_category = row["category"].downcase
+    
+    white_keyword_list.each do |white_keyword|
+      
+      # need a high performance search
+      # depends on whether the search is for a single work or a collection of words
+      
+      
+      # get the keyword value
+      white_keyword_value = white_keyword["value"].downcase
+      white_keyword_sport_name = white_keyword["sport_name"]
+      if return_value != ""
+        #stop looping once a keyword is found
+        break      
+      elsif program_title =~ /\b#{white_keyword_value}\b/
+        # set the return value to true
+        return_value = white_keyword_sport_name
+        #log.debug("White Keyword match found (#{white_keyword_value})")
+      elsif program_subtitle =~ /\b#{white_keyword_value}\b/
+        # set the return value to true
+        return_value = white_keyword_sport_name
+        #log.debug("White Keyword match found (#{white_keyword_value})")
+      #elsif program_description =~ /\b#{white_keyword_value}\b/
+      #  # set the return value to true
+      #  return_value = white_keyword_sport_name
+      #  #log.debug("White Keyword match found (#{white_keyword_value})")
+      elsif program_category =~ /\b#{white_keyword_value}\b/
+        # set the return value to true
+        return_value = white_keyword_sport_name
+        #log.debug("White Keyword match found (#{white_keyword_value})")
+      else
+        #do nothing
+      end
+    end
+  end
+  
+  # return the appropriate value
+  return return_value
 
 end
 ################################################################################
@@ -30,8 +164,37 @@ def CheckSportLiteral(db,log,row)
   # returns true/false
   # this check is for a generic 'sport' match
   
-  # for now return false
-  return false
+  # use a default return value
+  return_value = false
+  
+  # loop through each black keyword and return true if there is a match
+  program_title = row["title"].downcase
+  program_subtitle = row["subtitle"].downcase
+  #program_description = row["description"].downcase
+  program_category = row["category"].downcase
+    
+  if program_title.include? "sport"
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport literal match found")
+  elsif program_subtitle.include? "sport"
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport literal match found")
+  #elsif program_description.include? "sport"
+  #  # set the return value to true
+  #  return_value = true
+  #  #log.debug("XXX - Sport literal match found")
+  elsif program_category.include? "sport"  
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport literal match found")
+  else
+    #do nothing
+  end
+ 
+  # return the appropriate value
+  return return_value
 
 end
 ################################################################################
@@ -39,8 +202,53 @@ def CheckNewsOrWeather(db,log,row)
   # returns true/false
   # this check is for a generic 'news' or 'weather' match
   
-  # for now return false
-  return false
+  # use a default return value
+  return_value = false
+  
+  # loop through and return true if there is a match
+  program_title = row["title"].downcase
+  program_subtitle = row["subtitle"].downcase
+  #program_description = row["description"].downcase
+  program_category = row["category"].downcase
+    
+  if program_title.include? "weather"
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport/Weather literal match found")
+  elsif program_subtitle.include? "weather"
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport/Weather literal match found")
+  #elsif program_description.include? "weather"
+  #  # set the return value to true
+  #  return_value = true
+  #  #log.debug("XXX - Sport/Weather literal match found")
+  elsif program_category.include? "weather"  
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport/Weather literal match found")
+  elsif program_title.include? "news"
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport/News literal match found")
+  elsif program_subtitle.include? "news"
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX -Sport/News literal match found")
+  #elsif program_description.include? "news"
+  #  # set the return value to true
+  #  return_value = true
+  #  #log.debug("XXX - Sport/News literal match found")
+  elsif program_category.include? "news"  
+    # set the return value to true
+    return_value = true
+    #log.debug("XXX - Sport/News literal match found")      
+  else
+    #do nothing
+  end
+ 
+  # return the appropriate value
+  return return_value
 
 end
 ################################################################################
