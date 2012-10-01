@@ -121,42 +121,78 @@ def CheckWhiteKeyword(db,log,row)
     #program_description = row["description"].downcase
     program_category = row["category"].downcase
     
+    # log for performance monitoring
+    log.warn("Start Keyword Search for: #{program_title}")
+    
     white_keyword_list.each do |white_keyword|
       
-      # need a high performance search
-      # depends on whether the search is for a single work or a collection of words
-      
-      
+      # ****************************************************
+      # * this is a slightly complicated block of code but *
+      # * it is trying to optimise the way multiple word   *
+      # * searches and single word searches are executed   *
+      # ****************************************************
+            
       # get the keyword value
       white_keyword_value = white_keyword["value"].downcase
       white_keyword_sport_name = white_keyword["sport_name"]
       if return_value != ""
         #stop looping once a keyword is found
-        break      
-      elsif program_title =~ /\b#{white_keyword_value}\b/
-        # set the return value to true
-        return_value = white_keyword_sport_name
-        #log.debug("White Keyword match found (#{white_keyword_value})")
-      elsif program_subtitle =~ /\b#{white_keyword_value}\b/
-        # set the return value to true
-        return_value = white_keyword_sport_name
-        #log.debug("White Keyword match found (#{white_keyword_value})")
-      #elsif program_description =~ /\b#{white_keyword_value}\b/
-      #  # set the return value to true
-      #  return_value = white_keyword_sport_name
-      #  #log.debug("White Keyword match found (#{white_keyword_value})")
-      elsif program_category =~ /\b#{white_keyword_value}\b/
-        # set the return value to true
-        return_value = white_keyword_sport_name
-        #log.debug("White Keyword match found (#{white_keyword_value})")
+        break
+      elsif white_keyword_value.include? " "
+        # the keyword contains a space so it has multiple words
+        # in this case do a standard include search
+        if program_title.include? white_keyword_value
+          # match so return the sport name
+          return_value = white_keyword_sport_name
+        elsif program_subtitle.include? white_keyword_value
+          # match so return the sport name
+          return_value = white_keyword_sport_name
+        elsif program_category.include? white_keyword_value
+          # match so return the sport name
+          return_value = white_keyword_sport_name
+        else
+          # no matches so do nothing
+        end
       else
-        #do nothing
+        # the keyword contains no space so it has only one words
+        # in this case do a standard include search
+        if return_value == ""
+          program_title.split.each do |s|
+            if s == white_keyword_value
+              # match so return the sport name
+              return_value = white_keyword_sport_name
+            end
+          end
+        end
+        # check for a return value again in case a match has already been found
+        if return_value == ""
+          program_subtitle.split.each do |s|
+            if s == white_keyword_value
+              # match so return the sport name
+              return_value = white_keyword_sport_name
+            end
+          end
+        end
+        # check for a return value again in case a match has already been found
+        if return_value == ""
+          program_category.split.each do |s|
+            if s == white_keyword_value
+              # match so return the sport name
+              return_value = white_keyword_sport_name
+            end
+          end
+        end
       end
     end
   end
   
+  # log for performance monitoring
+  log.warn("Return Value is: #{return_value}")
+  log.warn("Complete Keyword Search for: #{program_title}")
+  
   # return the appropriate value
   return return_value
+
 
 end
 ################################################################################
