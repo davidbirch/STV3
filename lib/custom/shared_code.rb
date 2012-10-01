@@ -122,7 +122,7 @@ def CheckWhiteKeyword(db,log,row)
     program_category = row["category"].downcase
     
     # log for performance monitoring
-    log.warn("Start Keyword Search for: #{program_title}")
+    #log.debug("Start Keyword Search for: #{program_title}")
     
     white_keyword_list.each do |white_keyword|
       
@@ -187,8 +187,8 @@ def CheckWhiteKeyword(db,log,row)
   end
   
   # log for performance monitoring
-  log.warn("Return Value is: #{return_value}")
-  log.warn("Complete Keyword Search for: #{program_title}")
+  #log.debug("Return Value is: #{return_value}")
+  #log.debug("Complete Keyword Search for: #{program_title}")
   
   # return the appropriate value
   return return_value
