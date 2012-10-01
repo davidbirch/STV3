@@ -12,7 +12,7 @@ require 'time'
 require 'yaml'
 
 # required shared code
-require "./#{File.dirname(__FILE__)}/shared_code.rb"
+require "#{File.dirname(__FILE__)}/shared_code.rb"
 
 # some constants and global variables are stored here
 RAILS_ENVIRONMENT = "development" # used to open the database
