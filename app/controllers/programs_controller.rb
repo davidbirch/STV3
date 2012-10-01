@@ -2,8 +2,19 @@ class ProgramsController < ApplicationController
   # GET /programs
   # GET /programs.json
   def index
-    @programs = Program.all
-
+    
+    # call Program.scope instead of Program.all to return an ActiveRecord::Relation object
+    # which allows chaining with the below searches by params
+    @programs = Program.scoped
+    
+    if params[:sport]
+      @programs = @programs.where(:sport_name => params[:sport])
+    end
+    
+    if params[:region]
+      @programs = @programs.where(:region_name => params[:region])
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @programs }

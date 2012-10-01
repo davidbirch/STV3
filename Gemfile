@@ -40,3 +40,4 @@ gem 'jquery-rails'
 # additional gems for STV3
 gem 'annotate', '~> 2.4.1.beta'
 gem 'friendly_id', '~> 4.0.1'
+gem "twitter-bootstrap-rails"
