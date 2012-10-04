@@ -24,6 +24,15 @@ log.level = Logger::INFO
 log.info("****** Starting clean_up.rb ******")
 
 begin
+    
+    # delete the programs that are older than yesterday!
+    querystring = "
+    DELETE FROM programs
+    WHERE id = '#{row["id"]}'"
+        
+    # execute the  query
+    log.debug("Run database query: #{querystring}")
+    db.query(querystring)
      
 rescue Exception => e  
   # on error just log the error message
