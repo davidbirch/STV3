@@ -13,6 +13,7 @@ require 'yaml'
 
 # required shared code
 require "#{File.dirname(__FILE__)}/shared_code.rb"
+#require "./#{File.dirname(__FILE__)}/shared_code.rb"
 
 # some constants and global variables are stored here
 RAILS_ENVIRONMENT = "development" # used to open the database
@@ -100,107 +101,123 @@ begin
    
   end
   
-  querystring ="
-  SELECT *
-  FROM raw_programs"
-  log.debug("Run database query: #{querystring}")
   
-  # execute the database query
-  results = db.query(querystring)
-  log.info("Number of rows in raw_programs: #{results.count}")
   
-  #loop through each program
-  results.each do |row|
+  # use this to loop through all the records in raw_programs in batches of 1000
+  # trying to address a performance problem with around 200000 records
+  records_exist = true
+  while records_exist
   
-    # get the relevant program attributes from the raw_program object
-    program_title = db.escape(row["title"])
-    program_subtitle = db.escape(row["subtitle"])
-    program_category = db.escape(row["category"])
-    program_description = db.escape(row["description"])
-    program_start_datetime = row["start_datetime"]
-    program_end_datetime = row["end_datetime"]
-    program_region_name =  row["region_name"]
-    program_channel_xmltv_id =  row["channel_xmltv_id"]
-       
-    # set the created and updated dates 
-    program_created_at = Time.now # note: this is the Rails created_at, not a Program attribute
-    program_updated_at = program_created_at # note: this is the Rails updated_at, not a Program attribute
-      
-    # calculate the channel_id
-    querystring = "
-    SELECT id
-    FROM channels
-    WHERE xmltv_id = '#{program_channel_xmltv_id}'"
-        
-    # get the channel_id
-    # this cycles through in case there are multiple records
+    querystring ="
+    SELECT *
+    FROM raw_programs
+    LIMIT 0,1000"
     log.debug("Run database query: #{querystring}")
-    channel_check = db.query(querystring)
-    channel_id = 0
-    channel_check.each do |channel|
-      channel_id = channel["id"]
-    end
-    
-    # calculate the region_id
-    querystring = "
-    SELECT id
-    FROM regions
-    WHERE region_name = '#{program_region_name}'"
-        
-    # get the region_id
-    # this cycles through in case there are multiple records
-    log.debug("Run database query: #{querystring}")
-    region_check = db.query(querystring)
-    region_id = 0
-    region_check.each do |region|
-      region_id = region["id"]
-    end
-    
-    # filter the sport using the GetSport algorithm
-    program_sport_name = GetSport(db,log,row)
-     
-    if program_sport_name == ""
-      # the sport was not a match so do nothing
-      # the entry will be deleted outside the if statement
       
-    else
-      # calculate the sport_id
+    # execute the database query
+    results = db.query(querystring)
+    log.info("Number of rows in raw_programs: #{results.count}")
+   
+    # if there are zero records then quit the loop
+    if results.count == 0
+      records_exist = false
+    end
+      
+    #loop through each program
+    results.each do |row|
+    
+      # get the relevant program attributes from the raw_program object
+      program_title = db.escape(row["title"])
+      program_subtitle = db.escape(row["subtitle"])
+      program_category = db.escape(row["category"])
+      program_description = db.escape(row["description"])
+      program_start_datetime = row["start_datetime"]
+      program_end_datetime = row["end_datetime"]
+      program_region_name =  row["region_name"]
+      program_channel_xmltv_id =  row["channel_xmltv_id"]
+         
+      # set the created and updated dates 
+      program_created_at = Time.now # note: this is the Rails created_at, not a Program attribute
+      program_updated_at = program_created_at # note: this is the Rails updated_at, not a Program attribute
+        
+      # calculate the channel_id
       querystring = "
       SELECT id
-      FROM sports
-      WHERE sport_name = '#{program_sport_name}'"
-        
-      # get the sport_id
+      FROM channels
+      WHERE xmltv_id = '#{program_channel_xmltv_id}'"
+          
+      # get the channel_id
       # this cycles through in case there are multiple records
       log.debug("Run database query: #{querystring}")
-      sport_check = db.query(querystring)
-      sport_id = 0
-      sport_check.each do |sport|
-        sport_id = sport["id"]
+      channel_check = db.query(querystring)
+      channel_id = 0
+      channel_check.each do |channel|
+        channel_id = channel["id"]
       end
       
-      # all relevant information exists and the sport has been categorised
-      # create the program record
+      # calculate the region_id
       querystring = "
-      INSERT INTO programs (title, subtitle, category, description, start_datetime, end_datetime, region_name, region_id, sport_name, sport_id, channel_xmltv_id, channel_id, created_at, updated_at)
-      VALUES('#{program_title}', '#{program_subtitle}', '#{program_category}',  '#{program_description}', '#{program_start_datetime}', '#{program_end_datetime}', '#{program_region_name}', '#{region_id}', '#{program_sport_name}', '#{sport_id}', '#{program_channel_xmltv_id}', '#{channel_id}', '#{program_created_at}', '#{program_updated_at}')"
-  
-      # execute the database query to create the user
+      SELECT id
+      FROM regions
+      WHERE region_name = '#{program_region_name}'"
+          
+      # get the region_id
+      # this cycles through in case there are multiple records
+      log.debug("Run database query: #{querystring}")
+      region_check = db.query(querystring)
+      region_id = 0
+      region_check.each do |region|
+        region_id = region["id"]
+      end
+      
+      # filter the sport using the GetSport algorithm
+      program_sport_name = GetSport(db,log,row)
+       
+      if program_sport_name == ""
+        # the sport was not a match so do nothing
+        # the entry will be deleted outside the if statement
+        
+      else
+        # calculate the sport_id
+        querystring = "
+        SELECT id
+        FROM sports
+        WHERE sport_name = '#{program_sport_name}'"
+          
+        # get the sport_id
+        # this cycles through in case there are multiple records
+        log.debug("Run database query: #{querystring}")
+        sport_check = db.query(querystring)
+        sport_id = 0
+        sport_check.each do |sport|
+          sport_id = sport["id"]
+        end
+        
+        # all relevant information exists and the sport has been categorised
+        # create the program record
+        querystring = "
+        INSERT INTO programs (title, subtitle, category, description, start_datetime, end_datetime, region_name, region_id, sport_name, sport_id, channel_xmltv_id, channel_id, created_at, updated_at)
+        VALUES('#{program_title}', '#{program_subtitle}', '#{program_category}',  '#{program_description}', '#{program_start_datetime}', '#{program_end_datetime}', '#{program_region_name}', '#{region_id}', '#{program_sport_name}', '#{sport_id}', '#{program_channel_xmltv_id}', '#{channel_id}', '#{program_created_at}', '#{program_updated_at}')"
+    
+        # execute the database query to create the user
+        log.debug("Run database query: #{querystring}")
+        db.query(querystring)
+       
+      end
+      
+      # now delete the program from the raw_programs table
+      querystring = "
+      DELETE FROM raw_programs
+      WHERE id = '#{row["id"]}'"
+        
+      # execute the  query
       log.debug("Run database query: #{querystring}")
       db.query(querystring)
-     
-    end
     
-    # now delete the program from the raw_programs table
-    querystring = "
-    DELETE FROM raw_programs
-    WHERE id = '#{row["id"]}'"
-      
-    # execute the  query
-    log.debug("Run database query: #{querystring}")
-    db.query(querystring)
+    end
   
   end
+  
     
 rescue Exception => e  
   # on error just log the error message
