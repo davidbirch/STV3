@@ -13,5 +13,8 @@ class CreateRules < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :rules :rule_type
+    
   end
 end

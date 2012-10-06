@@ -16,5 +16,10 @@ class CreatePrograms < ActiveRecord::Migration
 
       t.timestamps
     end
+        
+    add_index :programs, :region_name
+    add_index :programs, :sport_name
+    add_index :programs, :channel_xmltv_id
+    
   end
 end
