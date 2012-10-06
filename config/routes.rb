@@ -22,12 +22,13 @@ STV3::Application.routes.draw do
   #resources :raw_programs
   
   # -------------------------------------------------------
-
+  # special routes - these need to be last // catch all
+  
   # special routes for /region
   match ':id' => 'regions#show'
     
   # special route for /region/sport
-  match ':region_name/:sport_name' => 'programs#index'
+  match ':region/:sport' => 'programs#index'
 
 
 end
