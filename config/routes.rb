@@ -1,26 +1,33 @@
 STV3::Application.routes.draw do
 
   # -------------------------------------------------------
-  # default route
-  root :to => 'pages#home'
+  # default route to the region index page
+  root :to => 'regions#index'
 
   # -------------------------------------------------------
-  # static pages
-  match '/search',        :to => 'pages#search'
-  match '/privacy',       :to => 'pages#privacy'
-  match '/contact',       :to => 'pages#contact'
+  # static pages of supporting information
+  match 'search'   => 'pages#search'
+  match 'privacy'  => 'pages#privacy'
+  match 'contact'  => 'pages#contact'
   
   # -------------------------------------------------------
   # specific resource routes
-  resources :programs
-  resources :rules
-  resources :channels
-  resources :sports
   resources :regions
+  resources :programs
+  #resources :rules
+  #resources :channels
+  #resources :sports
   #resources :log_entries
   #resources :raw_channels 
   #resources :raw_programs
   
   # -------------------------------------------------------
+
+  # special routes for /region
+  match ':id' => 'regions#show'
+    
+  # special route for /region/sport
+  match ':region_name/:sport_name' => 'programs#index'
+
 
 end
