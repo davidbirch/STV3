@@ -1,25 +1,15 @@
-<h1>Listing regions</h1>
-
-<table>
-  <tr>
-    <th>Region name</th>
-    <th>Slug</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @regions.each do |region| %>
-  <tr>
-    <td><%= region.region_name %></td>
-    <td><%= region.slug %></td>
-    <td><%= link_to 'Show', region %></td>
-    <td><%= link_to 'Edit', edit_region_path(region) %></td>
-    <td><%= link_to 'Destroy', region, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Region', new_region_path %>
+  <div class="container">
+    <div class="row main">
+      <div class="span2 left_content">
+        <p>test</p>
+      </div>
+      <div class="span10 right_content">
+        <p>Sport On Television provides sports guide information for the following regions:</p>
+        <ul>
+        <% @regions.each do |region| %>
+          <li><%= link_to region.region_name, "/"+region.region_name %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>

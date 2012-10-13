@@ -1,15 +1,19 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Region name:</b>
-  <%= @region.region_name %>
-</p>
-
-<p>
-  <b>Slug:</b>
-  <%= @region.slug %>
-</p>
-
-
-<%= link_to 'Edit', edit_region_path(@region) %> |
-<%= link_to 'Back', regions_path %>
+  <div class="container">
+    <div class="row main">
+      <div class="span2 left_content">
+        <p>test</p>
+      </div>
+      <div class="span10 right_content">
+        <p>The current region is <%= @region.region_name %></p>
+        
+        <p> The current programs for the region are</p>
+        <ul>
+        <% @current_programs.each do |program| %>
+          <li><%= program.title %></li>
+        <% end %>
+        <ul>
+        
+        </ul>
+      </div>
+    </div>
+  </div>

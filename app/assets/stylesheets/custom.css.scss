@@ -1,7 +1,107 @@
+body {
+    background: #39414a url(/stv-header.png) repeat-x 50% 0;
+    padding-top: 0px;
+}
+
+header {
+    height: 156px;
+    color: #fff;	
+}
+header h1 {
+    line-height: 80px;
+    font-size: 50px;
+    font-family: sans-serif;
+}
+header img {
+    vertical-align: 0px;
+}
+header p {
+    font-size: 24px;
+}
+header a:link{
+    text-decoration: none;
+    color: #ffffff;
+}
+header a:visited{
+    text-decoration: none;
+    color: #ffffff;
+}
+header a:active{
+    text-decoration: none;
+    color: #ffffff;
+    background-color: transparent;
+}
+header a:hover{
+    text-decoration: none;
+    color: #ffffff;
+    background-color: transparent;
+}
+
 .centre{
     text-align:center;
 }
 
-.brand:hover{
-    background-color: transparent;  
+.main{
+    font-family: Verdana, sans-serif;
+    background: white;
+    min-height: 600px;
+}
+
+.left_content{
+    background-color: #CCC;
+  
+}
+
+.right_content{
+    background-color: #DDD;
+  
+}
+
+
+
+
+.upper_footer{
+    font-family: Verdana, sans-serif;
+    color: #636363;
+    font-size: 11px;
+    line-height: 1.4;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+    background: #f8f8f8;
+    min-height: 100px;
+}
+
+.lower_footer{
+    font-family: Verdana, sans-serif;
+    color: #636363;
+    font-size: 11px;
+    line-height: 1.4;   
+    background: white;
+    min-height: 20px;
+}
+
+.footer_nav  {
+    position: relative;
+    float: left;
+    width: 164px;
+    margin: 20px 10px;
+}
+
+.footer h4 {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    border-bottom: thin solid #E1E1E1;
+}
+
+.footer li{
+    list-style: none;
+}
+
+.footer img{
+    margin-bottom: 2px;
+}
+
+.footer pre{
+    margin: 9px 9px 9px 0px;
 }
