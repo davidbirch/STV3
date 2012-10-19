@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   
+  before_filter :authenticate, :except => [:about, :privacy, :contact]
+    
   def about
     @title = "About | Sport on Television in Australia"
     @meta_keywords = "sport, television, tv, coverage, tonight, Australia, Melbourne, Sydney, Brisbane, Adalaide, Perth"

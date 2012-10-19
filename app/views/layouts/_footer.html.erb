@@ -9,7 +9,9 @@
             </div>
             <div class="row lower_footer">
                   <div class="span12">
-                        <% debug params %>
+                        <% if logged_in? %>
+                        <%= debug params %>
+                        <% end %>     
                   </div>
             </div>
       </footer>

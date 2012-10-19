@@ -1,5 +1,8 @@
 module ApplicationHelper
   
+  def logged_in?
+    not request.authorization.nil?
+  end
 
   def title
       "#{@title}"
@@ -25,8 +28,7 @@ module ApplicationHelper
     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>"
-    
-    
+       
     google_code
   end
   
