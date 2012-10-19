@@ -7,7 +7,7 @@
         <p>Sport On Television provides sports guide information for the following regions:</p>
         <ul>
         <% @regions.each do |region| %>
-          <li><%= link_to region.region_name, "/"+region.region_name %></li>
+          <li><%= link_to region.region_name, "/"+region.region_name+"/" %></li>
         <% end %>
         </ul>
       </div>

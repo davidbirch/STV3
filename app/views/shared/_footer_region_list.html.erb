@@ -2,7 +2,7 @@
                         <ul class="footer_nav">
                           <h4>Select Region</h4>
                           <% @regions.each do |region| %>
-                          <li><%= link_to region.region_name, "/"+region.region_name %></li>
+                          <li><%= link_to region.region_name, "/"+region.region_name+"/" %></li>
                           <% end %>
                         </ul>
                         <% end %>

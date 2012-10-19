@@ -1,9 +1,9 @@
 <p>
   <a href="/">SPORT ON TV</a>
 <% if !@region.nil? %>
- >> <%= link_to @region.region_name, "/"+@region.region_name %>
+ >> <%= link_to @region.region_name, "/"+@region.region_name+"/" %>
   <% if !@sport.nil? %>
- >> <%= link_to @sport.sport_name, "/"+@region.region_name+"/"+@sport.sport_name %>
+ >> <%= link_to @sport.sport_name, "/"+@region.region_name+"/"+@sport.sport_name+"/" %>
   <% end %>
 <% end %>
 </p>
