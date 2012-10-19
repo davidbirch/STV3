@@ -1,6 +1,34 @@
+/* Main CSS file */
+
+/* Body, background and div sizes needed for all pages */
 body {
     background: #39414a url(/stv-header.png) repeat-x 50% 0;
     padding-top: 0px;
+}
+
+.row {
+    margin-right: -20px;
+}
+
+[class*="span"] {
+    margin-left: 0px;
+}
+
+.left_content{
+    padding-top: 20px;
+    width: 220px;
+}
+
+.right_content{
+    padding-top: 20px;
+    border-left: 1px solid #E0E0E0;
+    width: 758px;
+    min-height: 600px;  
+}
+
+.main{
+    font-family: Verdana, sans-serif;
+    background: white;
 }
 
 header {
@@ -41,24 +69,70 @@ header a:hover{
     text-align:center;
 }
 
-.main{
-    font-family: Verdana, sans-serif;
-    background: white;
-    min-height: 600px;
+.advertisment{
+    font-size: 9px;
+    margin-bottom: 0px;
+    text-align: center;
 }
 
-.left_content{
-    background-color: #CCC;
-  
+.left_content h4 {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
 }
 
-.right_content{
-    background-color: #DDD;
-  
+.left_content ul, img{
+    margin-left: 10px;
 }
 
+.left_content li{
+    list-style: none;
+    font-size: 11px;
+}
 
+.left_content a:link{
+	text-decoration: none;
+	color: black;    
+}
+.left_content a:visited{
+	text-decoration: none;
+	color: black; 
+}
+.left_content a:active{
+	color: black;    
+}
+.left_content a:hover{
+	text-decoration: underline;
+	color: black;
+        background-color: transparent;
+}
 
+.right_content p{
+    font-size: 11px;
+    margin-left: 16px;
+}
+
+.right_content img{
+    margin-left: 16px;
+    margin-bottom: 16px;
+}
+
+.right_content a:link{
+	text-decoration: none;
+	color: black;    
+}
+.right_content a:visited{
+	text-decoration: none;
+	color: black; 
+}
+.right_content a:active{
+	color: black;    
+}
+.right_content a:hover{
+	text-decoration: underline;
+	color: black;
+        background-color: transparent;
+}
 
 .upper_footer{
     font-family: Verdana, sans-serif;
@@ -102,6 +176,58 @@ header a:hover{
     margin-bottom: 2px;
 }
 
-.footer pre{
-    margin: 9px 9px 9px 0px;
-}
+
+/* CODE FOR THE DATA TABLE LAYOUT */
+table.program{
+	background-color: #fafafa;
+	border: 1px #000000 solid;
+	border-collapse: collapse;
+	border-spacing: 2px;
+	width: 728px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 16px;
+	font-size: 11px;
+    }
+col.col_time{
+	width: 7%;
+    }
+col.col_title{
+	width: 48%;
+    }
+col.col_sport{
+	width: 13%;
+    }
+col.col_channel{
+	width: 32%;
+    }
+.program_header{
+	background-color: #3266e6;
+	border-top: 1px #000000 solid;
+	border-bottom: 1px #000000 solid;
+	font-weight: bold;
+        font-size: 11px;
+	color: #fafafa;
+	text-align: left;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 8px;
+	padding-right: 0px;
+    }
+tr.program{
+	background-color: #fafafa;
+    }
+tr.program:hover{
+	background-color: #EEEEEE;
+    }
+td.program{
+	border-bottom: 1px #6699CC dotted;
+	text-align: left;
+	vertical-align: middle;
+	color: #404040;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 8px;
+	padding-right: 8px;
+        font-size: 11px;
+    }

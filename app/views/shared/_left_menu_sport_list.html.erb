@@ -1,0 +1,8 @@
+                        <% if !@sports.nil? && !@region.nil? %>
+                        <ul>
+                          <h4>Select Sport</h4>
+                          <% @sports.each do |sport| %>
+                          <li><%= link_to sport.sport_name, "/"+@region.region_name+"/"+sport.sport_name %></li>
+                          <% end %>
+                        </ul>
+                        <% end %>
