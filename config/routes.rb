@@ -6,10 +6,10 @@ STV3::Application.routes.draw do
 
   # -------------------------------------------------------
   # static pages of supporting information
-  match 'about'    => 'pages#about'
-  match 'login'    => 'pages#login'
-  match 'privacy'  => 'pages#privacy'
-  match 'contact'  => 'pages#contact'
+  match 'About'    => 'pages#about'
+  match 'Login'    => 'pages#login'
+  match 'Privacy'  => 'pages#privacy'
+  match 'Contact'  => 'pages#contact'
   
   # -------------------------------------------------------
   # specific resource routes
@@ -30,6 +30,5 @@ STV3::Application.routes.draw do
     
   # special route for /region/sport
   match ':region/:sport' => 'programs#index'
-
 
 end

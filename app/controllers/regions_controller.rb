@@ -4,7 +4,7 @@ class RegionsController < ApplicationController
   # GET /regions.json
   def index
 
-    @title = "Contact Us | Sport on Television in Australia"
+    @title = "Sport on Television in Australia"
     @meta_keywords = "sport, television, tv, coverage, tonight, Australia, Melbourne, Sydney, Brisbane, Adalaide, Perth"
     @meta_description = "Your source for sport on television in Australia.  Find out when sport is on Free-to-air or Pay TV.  Watch live sport on TV tonight."
     @meta_author = "contact@sportontv.com.au"
