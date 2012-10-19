@@ -6,7 +6,8 @@ STV3::Application.routes.draw do
 
   # -------------------------------------------------------
   # static pages of supporting information
-  match 'search'   => 'pages#search'
+  match 'about'    => 'pages#about'
+  match 'login'    => 'pages#login'
   match 'privacy'  => 'pages#privacy'
   match 'contact'  => 'pages#contact'
   

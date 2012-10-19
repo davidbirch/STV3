@@ -1,15 +1,21 @@
   <div class="container">
     <div class="row main">
       <div class="span2 left_content">
-        <p>test</p>
-      </div>
-      <div class="span10 right_content">
-        <p>Sport On Television provides sports guide information for the following regions:</p>
+        <%= render "shared/left_menu_sport_list" %>
+        <%= render "shared/left_menu_advertisment1" %>
+        <%= render "shared/left_menu_region_list" %>
+        <%= render "shared/left_menu_page_list" %>
+        <%= render "shared/left_menu_news_feed" %>
+        <%= render "shared/left_menu_advertisment2" %>
+        <%= render "shared/left_menu_bottom" %>
+    </div>
+    <div class="span10 right_content">
+      <p>Sport On Television provides sports guide information for the following regions:</p>
         <ul>
         <% @regions.each do |region| %>
           <li><%= link_to region.region_name, "/"+region.region_name+"/" %></li>
         <% end %>
         </ul>
-      </div>
+      
     </div>
   </div>

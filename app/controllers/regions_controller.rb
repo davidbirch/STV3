@@ -4,16 +4,19 @@ class RegionsController < ApplicationController
   # GET /regions.json
   def index
 
-    @title = "Sport on Television in Australia"
+    @title = "Contact Us | Sport on Television in Australia"
     @meta_keywords = "sport, television, tv, coverage, tonight, Australia, Melbourne, Sydney, Brisbane, Adalaide, Perth"
     @meta_description = "Your source for sport on television in Australia.  Find out when sport is on Free-to-air or Pay TV.  Watch live sport on TV tonight."
     @meta_author = "contact@sportontv.com.au"
     @regions = Region.all
-    @sports = Sport.all
-    
+        
+    # fetching a single feed
+    feed_uri = "http://au.news.search.yahoo.com/news/rss?p=sport"
+    news_feed = Feedzirra::Feed.fetch_and_parse(feed_uri)
+    @news_entries = news_feed.entries  
+        
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @regions }
     end
   end
 
@@ -44,9 +47,13 @@ class RegionsController < ApplicationController
     @regions = Region.all
     @sports = Sport.all
     
+    # fetching a single feed
+    feed_uri = "http://au.news.search.yahoo.com/news/rss?p=sport"
+    news_feed = Feedzirra::Feed.fetch_and_parse(feed_uri)
+    @news_entries = news_feed.entries  
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @region }
     end
   end
 

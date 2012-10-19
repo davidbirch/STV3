@@ -1,0 +1,8 @@
+  <div class="left_news_feed">
+    <ul>
+      <h4>Latest News</h4>
+      <% @news_entries.each do |news_entry| %>
+      <li><%= link_to news_entry.title, news_entry.url %> <%= news_entry.summary %></li>
+      <% end %>
+    </ul>
+  </div>

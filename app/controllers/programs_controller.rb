@@ -3,23 +3,43 @@ class ProgramsController < ApplicationController
   # GET /programs.json
   def index
     
-    # call Program.scope instead of Program.all to return an ActiveRecord::Relation object
-    # which allows chaining with the below searches by params
-    @programs = Program.scoped
+    @region = Region.find_by_region_name(params[:region])
+    @sport = Sport.find_by_sport_name(params[:sport])
     
-    if params[:sport]
-      @programs = @programs.where(:sport_name => params[:sport])
-    end
+    querystring = "
+    SELECT DISTINCT programs.title, programs.subtitle, programs.sport_name, channels.channel_name, channels.channel_short_name,
+           DATE_FORMAT(programs.start_datetime,'%a, %d %b %Y') AS start_day, programs.start_datetime,
+           programs.end_datetime, DATE_FORMAT(programs.start_datetime,'%k:%i') AS start_time,
+           DATE_FORMAT(programs.end_datetime,'%k:%i') AS end_time
+    FROM programs
+    LEFT JOIN channels 
+    ON programs.channel_id = channels.id
+    WHERE programs.end_datetime >= NOW()
+    AND programs.region_name = '#{params[:region]}'
+    AND programs.sport_name = '#{params[:sport]}'
+    ORDER BY start_datetime ASC, end_datetime ASC, channel_name ASC, subtitle DESC, title DESC
+    "
+       
+    @current_programs = Region.find_by_sql(querystring)
+      
+    @title = "#{@sport.sport_name} on Television in #{@region.region_name}, Australia"
+    @meta_keywords = "sport, television, tv, coverage, tonight, Australia, Melbourne, Sydney, Brisbane, Adalaide, Perth"
+    @meta_description = "Your source for sport on television in #{@region.region_name}, Australia.  Find out when sport is on Free-to-air or Pay TV.  Watch live sport on TV tonight."
+    @meta_author = "contact@sportontv.com.au"
+    @regions = Region.all
+    @sports = Sport.all
     
-    if params[:region]
-      @programs = @programs.where(:region_name => params[:region])
-    end
-    
+    # fetching a single feed
+    feed_uri = "http://au.news.search.yahoo.com/news/rss?p=sport"
+    news_feed = Feedzirra::Feed.fetch_and_parse(feed_uri)
+    @news_entries = news_feed.entries  
+      
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @programs }
     end
   end
+
 
   # GET /programs/1
   # GET /programs/1.json

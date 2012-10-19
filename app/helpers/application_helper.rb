@@ -9,16 +9,14 @@ module ApplicationHelper
       "#{@meta_keywords}"
   end
   
-   def meta_description
+  def meta_description
       "#{@meta_description}"
   end
   
-   def meta_author
+  def meta_author
       "#{@meta_author}"
   end
-  
-  
-  
+    
   def google_analytics
     google_code ="
     <script>
