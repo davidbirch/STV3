@@ -1,6 +1,8 @@
 /* The main CSS file */
 
-/* Body, background and div sizes needed for all pages */
+/*------------------------------------------------------------------------ 
+  Body, backgrounds, layouts, divs
+  ------------------------------------------------------------------------*/
 body {
     background: #39414a url(/stv-header.png) repeat-x 50% 0;
     padding-top: 0px;
@@ -10,33 +12,38 @@ body {
     margin-right: -20px;
 }
 
-[class*="span"] {
-    margin-left: 0px;
-}
-
-.left_content{
-    padding-top: 10px;
-    width: 220px;
-}
-
-.left_sport_list, .left_advertisment, .left_region_list, .left_page_list, .left_news_feed{
-    border-bottom: 1px solid #E0E0E0;
-    border-right: 1px solid #E0E0E0;
-    padding-top: 10px;
-}
-
-.right_content{
-    padding-top: 10px;
-    border-left: 1px solid #E0E0E0;
-    width: 758px;
-    min-height: 600px;  
-}
-
 .main{
     font-family: Verdana, sans-serif;
     background: white;
 }
 
+[class*="span"] {
+    margin-left: 0px;
+}
+
+
+/*------------------------------------------------------------------------ 
+  Bootstrap customisations and tweaks
+  ------------------------------------------------------------------------*/
+
+.alert{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.centre{
+    text-align:center;
+}
+
+pre{
+    margin: 10px;
+}
+
+
+/*------------------------------------------------------------------------ 
+  Header and Footer styles
+  ------------------------------------------------------------------------*/
 header {
     height: 156px;
     color: #fff;	
@@ -71,24 +78,63 @@ header a:hover{
     background-color: transparent;
 }
 
-.centre{
-    text-align:center;
+.footer_nav  {
+    position: relative;
+    float: left;
+    width: 164px;
+    margin: 20px 10px;
 }
 
-pre{
-    margin: 10px;
-}
-
-.advertisment{
-    font-size: 9px;
-    margin-bottom: 0px;
-    text-align: center;
-}
-
-.left_content h4 {
+.footer h4 {
     margin-bottom: 5px;
     padding-bottom: 5px;
     font-weight: bold;
+    border-bottom: thin solid #E1E1E1;
+}
+
+.footer li{
+    list-style: none;
+}
+
+.footer img{
+    margin-bottom: 2px;
+}
+
+.upper_footer{
+    font-family: Verdana, sans-serif;
+    color: #636363;
+    font-size: 11px;
+    line-height: 1.4;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+    background: #f8f8f8;
+    min-height: 100px;
+}
+
+.lower_footer{
+    font-family: Verdana, sans-serif;
+    color: #636363;
+    font-size: 11px;
+    line-height: 1.4;   
+    background: white;
+    min-height: 20px;
+}
+
+
+/*------------------------------------------------------------------------ 
+  The Left
+  ------------------------------------------------------------------------*/
+
+[class*="left_"] {
+    border-bottom: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    padding-top: 10px;
+}
+
+.left_content{
+    padding-top: 10px;
+    width: 220px;
+    border: none;
 }
 
 .left_content ul, .left_content img{
@@ -137,28 +183,24 @@ pre{
     color: #06E;
 }
 
-.left_bottom{
-    min-height: 10px;
-    border-right: 1px solid #E0E0E0;
-}
 
+/*------------------------------------------------------------------------ 
+  The Right
+  ------------------------------------------------------------------------*/
 
-
-.right_content p{
-    font-size: 11px;
-    margin-left: 16px;
-}
-
-.right_content h2{
-    font-weight: bold;
-    margin-left: 16px;
+.right_content{
+    padding-top: 10px;
+    width: 758px;
 }
 
 .right_content img{
-    margin-left: 16px;
     margin-bottom: 16px;
 }
 
+.right_content p, .right_content h2, .right_content h3{
+    margin-left: 16px;
+
+}
 .right_content a:link{
 	text-decoration: none;
 	color: black;    
@@ -176,50 +218,11 @@ pre{
         background-color: transparent;
 }
 
-.upper_footer{
-    font-family: Verdana, sans-serif;
-    color: #636363;
-    font-size: 11px;
-    line-height: 1.4;
-    border-top: 1px solid #E0E0E0;
-    border-bottom: 1px solid #E0E0E0;
-    background: #f8f8f8;
-    min-height: 100px;
-}
 
-.lower_footer{
-    font-family: Verdana, sans-serif;
-    color: #636363;
-    font-size: 11px;
-    line-height: 1.4;   
-    background: white;
-    min-height: 20px;
-}
+/*------------------------------------------------------------------------ 
+  The Table !!Move to a separate CSS later!!
+  ------------------------------------------------------------------------*/
 
-.footer_nav  {
-    position: relative;
-    float: left;
-    width: 164px;
-    margin: 20px 10px;
-}
-
-.footer h4 {
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    font-weight: bold;
-    border-bottom: thin solid #E1E1E1;
-}
-
-.footer li{
-    list-style: none;
-}
-
-.footer img{
-    margin-bottom: 2px;
-}
-
-
-/* CODE FOR THE DATA TABLE LAYOUT */
 table.program{
 	background-color: #fafafa;
 	border: 1px #000000 solid;

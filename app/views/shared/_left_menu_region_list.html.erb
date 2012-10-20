@@ -1,10 +1,10 @@
-                        <% if !@regions.nil? %>
-                          <div class="left_region_list">
-                          <ul>
-                          <h4>Select Region</h4>
-                          <% @regions.each do |region| %>
-                            <li><%= link_to region.region_name, "/"+region.region_name+"/" %></li>
-                          <% end %>
-                          </ul>
-                          </div>
-                         <% end %>
+<% if !@regions.nil? %>
+  <div class="left_region_list">
+    <ul>
+      <h3>Select Region</h3>
+      <% @regions.each do |region| %>
+      <li><%= link_to region.region_name, "/"+region.region_name+"/" %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
