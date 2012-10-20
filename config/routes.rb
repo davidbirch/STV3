@@ -13,11 +13,11 @@ STV3::Application.routes.draw do
   
   # -------------------------------------------------------
   # specific resource routes
-  resources :regions
+  resources :regions :only => [:index, :show]
   resources :programs
   #resources :rules
-  #resources :channels
-  #resources :sports
+  resources :sports, :only => [:show]
+  resources :channels, :only => [:show]
   #resources :log_entries
   #resources :raw_channels 
   #resources :raw_programs

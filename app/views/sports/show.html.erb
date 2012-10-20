@@ -1,10 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Sport name:</b>
-  <%= @sport.sport_name %>
-</p>
-
-
-<%= link_to 'Edit', edit_sport_path(@sport) %> |
-<%= link_to 'Back', sports_path %>
+<h2>Show Sport</h2>
+<div class="well">
+  <dl class="dl-horizontal">
+    <dt>Sport name:</dt>
+    <dd><%= @sport.sport_name %></dd>
+  </dl>
+</div>

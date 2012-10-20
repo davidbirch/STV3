@@ -49,6 +49,11 @@ GEM
       loofah (~> 1.2.1)
       nokogiri (~> 1.5.3)
       sax-machine (~> 0.2.0.rc1)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
+    formtastic-bootstrap (2.0.0)
+      formtastic (~> 2.2)
+      formtastic-bootstrap
     friendly_id (4.0.8)
     gorillib (0.1.11)
       json
@@ -136,6 +141,7 @@ DEPENDENCIES
   annotate (~> 2.4.1.beta)
   coffee-rails (~> 3.2.1)
   feedzirra (~> 0.2.0.rc2)
+  formtastic-bootstrap
   friendly_id (~> 4.0.1)
   jquery-rails
   mysql2
