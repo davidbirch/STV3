@@ -1,39 +1,45 @@
-<h1>Listing rules</h1>
-
-<table>
-  <tr>
-    <th>Rule type</th>
-    <th>Priority</th>
-    <th>Value</th>
-    <th>Start date</th>
-    <th>End date</th>
-    <th>Channel</th>
-    <th>Channel xmltv</th>
-    <th>Sport</th>
-    <th>Sport name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @rules.each do |rule| %>
-  <tr>
-    <td><%= rule.rule_type %></td>
-    <td><%= rule.priority %></td>
-    <td><%= rule.value %></td>
-    <td><%= rule.start_date %></td>
-    <td><%= rule.end_date %></td>
-    <td><%= rule.channel_id %></td>
-    <td><%= rule.channel_xmltv_id %></td>
-    <td><%= rule.sport_id %></td>
-    <td><%= rule.sport_name %></td>
-    <td><%= link_to 'Show', rule %></td>
-    <td><%= link_to 'Edit', edit_rule_path(rule) %></td>
-    <td><%= link_to 'Destroy', rule, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<h2>Rule Algorithm</h2>
+<p>Rules are applied as follows:</p>
+<p>1. Black Channels are all checked, no order required.</p>
+<p>2. Black Keywords are all checked, no order required.</p>
+<p>3. White Keywords are checked.  The keywords are ordered as follows:</p>
+<pre>
+  SELECT value, sport_name
+  FROM rules
+  WHERE rule_type = 'White Keyword'
+  ORDER BY priority DESC, LENGTH(value) DESC
+</pre>
+<p>4. Then anything with a generic 'sport' match is included</p>
+<p>5. Except anything containing 'weather' or 'news'</p>
+<h2>Listing Rules</h2>
+<p>Create a new rule: <%= link_to 'New', new_rule_path, :class => 'btn btn-mini btn-primary' %></p>
+<table class="table table-striped table-condensed admin">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Priority</th>
+      <th>Rule</th>
+      <th>Sport</th>
+      <th>Actions</th>
+    </tr> 
+  </thead>
+  <tbody>
+    <% @rules.each do |rule| %>
+      <% if rule.updated_today %>
+      <tr class="success">
+      <% else %>
+      <tr>
+      <% end %>
+        <td><%= rule.rule_type %></td>
+        <td><%= rule.priority %></td>
+        <td><%= link_to rule.value, rule_path(rule.id) %></td>
+        <td><%= rule.sport_name %></td>
+        <td>
+          <%= link_to 'Edit', edit_rule_path(rule), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', rule, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Rule', new_rule_path %>

@@ -8,16 +8,17 @@ STV3::Application.routes.draw do
   # static pages of supporting information
   match 'About'    => 'pages#about'
   match 'Login'    => 'pages#login'
+  match 'Dashboard'=> 'pages#dashboard'
   match 'Privacy'  => 'pages#privacy'
   match 'Contact'  => 'pages#contact'
   
   # -------------------------------------------------------
   # specific resource routes
-  resources :regions :only => [:index, :show]
+  resources :regions, :only => [:index, :show]
   resources :programs
-  #resources :rules
+  resources :rules
   resources :sports, :only => [:show]
-  resources :channels, :only => [:show]
+  resources :channels, :only => [:index, :show]
   #resources :log_entries
   #resources :raw_channels 
   #resources :raw_programs

@@ -8,6 +8,10 @@ module ApplicationHelper
       "#{@title}"
   end
   
+  def breadcrumb
+      "#{@breadcrumb}"
+  end
+  
   def meta_keywords
       "#{@meta_keywords}"
   end

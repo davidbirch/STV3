@@ -1,9 +1,31 @@
 class RulesController < ApplicationController
+  
+  before_filter :authenticate
+  
   # GET /rules
   # GET /rules.json
   def index
-    @rules = Rule.all
-
+    @title = "Rules | Sport on Television in Australia"
+    @breadcrumb = "Rules"
+    @meta_keywords = "sport, television, tv, coverage, tonight, Australia, Melbourne, Sydney, Brisbane, Adalaide, Perth"
+    @meta_description = "Your source for sport on television in Australia.  Find out when sport is on Free-to-air or Pay TV.  Watch live sport on TV tonight."
+    @meta_author = "contact@sportontv.com.au"
+    @regions = Region.all
+        
+    # fetching a single feed
+    feed_uri = "http://au.news.search.yahoo.com/news/rss?p=sport"
+    news_feed = Feedzirra::Feed.fetch_and_parse(feed_uri)
+    @news_entries = news_feed.entries  
+    
+    
+    #get the rules sorted aligned to the algorithm
+    querystring = "
+    SELECT id, rule_type, priority, value, sport_name, created_at, updated_at, channel_xmltv_id, LENGTH(value) AS value_length, DATE(updated_at) = DATE(NOW()) AS updated_today
+    FROM rules
+    ORDER BY rule_type, priority DESC, value_length DESC
+    "    
+    @rules = Rule.find_by_sql(querystring)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @rules }
